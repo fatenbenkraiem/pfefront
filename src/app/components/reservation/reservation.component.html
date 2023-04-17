@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+<section id="default" class="d-flex align-items-center">
+    <div class="container-fluid" data-aos="fade-up">
+        <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                <h1>
+                    Nouvelle Réservation
+                </h1>
+
+                <div>
+                    <a [routerLink]="['/CONTACT']"  class="btn-get-started scrollto">Participer</a>
+                    <button class="btn-get-started scrollto" (click)="gotoTDetails()">En savoir plus</button>
+                </div>
+            </div>
+            <div style="width: 55%; margin-left: 10px" class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img"
+                data-aos="zoom-in" data-aos-delay="150">
+
+                <svg width="100%" viewBox="0 0 700 500" class="animated">
+                    <clipPath id="clip-path">
+                        <path
+                            d="M89.479,0.180 L512.635,25.932 C568.395,29.326 603.115,76.927 590.357,129.078 L528.827,380.603 C518.688,422.048 472.661,448.814 427.190,443.300 L73.350,400.391 C32.374,395.422 -0.267,360.907 -0.002,322.064 L1.609,85.154 C1.938,36.786 40.481,-2.801 89.479,0.180 Z">
+                        </path>
+                    </clipPath>
+                    <!-- xlink:href for modern browsers, src for IE8- -->
+                    <image clip-path="url(#clip-path)" xlink:href="assets/assets/reserve.png" width="100%"
+                        height="465" class="svg__image"></image>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section id="services" class="services section-bg">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Le logiciel de réservation de ressources permet de savoir si le ressource est disponible ou déjà réservé.</h2>
+
+        </div>
+
+        <div class="row gy-4">
+            <div 
+                class="col-lg-4 col-md-6 d-flex align-items-stretch" 
+                data-aos="zoom-in" 
+                data-aos-delay="100"
+                *ngFor="let reservation of reservations"
+                width="100%"
+                >
+                <div class="icon-box iconbox-blue">
+                    <h4>{{ reservation.datedebut }}</h4>
+                    <p>
+                        {{ reservation.datefin }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,258 @@
+<app-adminheader></app-adminheader>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <app-adminsidebar></app-adminsidebar>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4"> Réservation </h1>
+                <div class="row" *ngIf="addFormVisible">
+                    <div class="card mb-4">
+                        <div class="card-header">
+
+                        </div>
+                        <div class="card-body">
+
+                            <form (ngSubmit)="createReservation()" [formGroup]="myForm" method="POST">
+                                <div class="card card-default">
+
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="form-group col-lg-6">
+                                                <label>Date début</label>
+                                                <input type="datetime-local" formControlName="datedebut" class="form-control"
+                                                    required />
+                                                <div *ngIf="myForm.controls['datedebut'].invalid && (myForm.controls['datedebut'].dirty || myForm.controls['datedebut'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="myForm.controls['datedebut']?.errors?.['required']">
+                                                        date is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Date fin</label>
+                                                <input type="datetime-local" formControlName="datefin" class="form-control"
+                                                    required />
+                                                <div *ngIf="myForm.controls['datefin'].invalid && (myForm.controls['datefin'].dirty || myForm.controls['datefin'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="myForm.controls['datefin']?.errors?.['required']">
+                                                        date is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Choose etat</label>
+                                                <select formControlName="etat" class="dropdown" [(ngModel)]="reservation.etat">
+                                                          <option value="default">----</option>
+                                                          <option value="1"> enable</option>
+                                                           <option value="0">disable</option>
+                                                </select>
+                                                <!--div *ngIf="myForm.controls['etat'].invalid && (myForm.controls['etat'].dirty || myForm.controls['etat'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="myForm.controls['etat']?.errors?.['required']">
+                                                        etat is required.
+                                                    </div>
+                                                </div-->
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group col-lg-6">
+                                            <label>Choose Ressource</label>
+                                            <select formControlName="res" class="dropdown" (change)="onOptionSelected($event)">
+                                                <option value="default">----</option>
+                                                      <option *ngFor="let item of actualitesRes" [value]="item.id">
+                                                         {{item.name}}
+                                                       </option>
+                                            </select>
+                                            <div *ngIf="myForm.controls['res'].invalid && (myForm.controls['res'].dirty || myForm.controls['res'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="myForm.controls['res']?.errors?.['required']">
+                                                    etat is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label>Choose User</label>
+                                            <select formControlName="user" class="dropdown" (change)="onOptionSelect($event)">
+                                                <option value="default">----</option>
+                                                          <option *ngFor="let item of Demandeurs" [value]="item.id">
+                                                             {{item.nom}}
+                                                           </option>
+                                            </select>
+                                            <div *ngIf="myForm.controls['user'].invalid && (myForm.controls['user'].dirty || myForm.controls['user'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="myForm.controls['user']?.errors?.['required']">
+                                                    etat is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row float-right">
+                                            <div class="col">
+                                                <button type="reset" class="btn btn-primary  btn-sm m-3"
+                                                    data-dismiss="modal" (click)="hideAddForm()">Annuler</button>
+                                                <button type="submit" [disabled]="!myForm.valid"
+                                                    class="btn btn-success btn-sm"
+                                                    data-dismiss="modal">Enregistrer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" *ngIf="editFormVisible">
+                    <div class="card mb-4">
+                        <div class="card-body">
+
+                            <form (ngSubmit)="editReservation(reservation)" [formGroup]="myForm" method="POST">
+                                <div class="card card-default">
+
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="form-group col-lg-6">
+                                                <label>Date début</label>
+                                                <input type="datetime-local" formControlName="datedebut" class="form-control"
+                                                    required />
+                                                <div *ngIf="myForm.controls['datedebut'].invalid && (myForm.controls['datedebut'].dirty || myForm.controls['datedebut'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="myForm.controls['datedebut']?.errors?.['required']">
+                                                        date is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Date fin</label>
+                                                <input type="datetime-local" formControlName="datefin" class="form-control"
+                                                    required />
+                                                <div *ngIf="myForm.controls['datefin'].invalid && (myForm.controls['datefin'].dirty || myForm.controls['datefin'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="myForm.controls['datefin']?.errors?.['required']">
+                                                        date is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Choose etat</label>
+                                                <select formControlName="etat" class="dropdown" [(ngModel)]="reservation.etat">
+                                                          <option value="default">----</option>
+                                                          <option value="1"> enable</option>
+                                                           <option value="0">disable</option>
+                                                </select>
+                                                <div *ngIf="myForm.controls['etat'].invalid && (myForm.controls['etat'].dirty || myForm.controls['etat'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="myForm.controls['etat']?.errors?.['required']">
+                                                        etat is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group col-lg-6">
+                                            <label>Choose Ressource</label>
+                                            <select formControlName="res" class="dropdown" (change)="onOptionSelected($event)">
+                                                <option value="default">----</option>
+                                                      <option *ngFor="let item of actualitesRes" [value]="item.id">
+                                                         {{item.name}}
+                                                       </option>
+                                            </select>
+                                            <div *ngIf="myForm.controls['res'].invalid && (myForm.controls['res'].dirty || myForm.controls['res'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="myForm.controls['res']?.errors?.['required']">
+                                                    Ressource is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <div class="row float-right">
+                                            <div class="col">
+                                                <button type="reset" class="btn btn-primary  btn-sm m-3"
+                                                    data-dismiss="modal" (click)="hideEditForm()">Annuler</button>
+                                                <button type="submit"   (click)="updateReservation()" class="btn btn-success btn-sm"
+                                                    data-dismiss="modal">Enregistrer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col col-lg-10">
+                                    <i class="fas fa-table me-1"></i>
+                                    Liste des Réservations
+                                </div>
+                                <div class="col col-lg-2">
+                                    <button class="btn btn-primary btn-sm float-right" (click)="showAddForm()">
+                                        Ajouter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="dataTable-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Nom Res</th>
+                                        <!--th>Typr Res</th-->
+                                        <th>Date début</th>
+                                        <th>Date fin</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let reservation of reservations | slice:(currentPage - 1) * itemsPerPage : currentPage * itemsPerPage">
+                                        <td *ngFor="let demandeur of Demandeurs">{{demandeur.nom}}</td>
+                                        <td *ngFor="let actualite of actualitesRes">{{actualite.name}}</td>
+                                        <!--td *ngFor="let actualite of actualitesType">{{actualite.nom}}</td-->
+                                        <td>{{ reservation.datedebut }}</td>
+                                        <td>{{ reservation.datefin }}</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col float-right">
+                                                    <button class="btn btn-sm btn-warning m-2"
+                                                        (click)="editReservation(reservation)">
+                                                        Modifier
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger m-2"
+                                                        (click)="deleteReservation(reservation)">
+                                                        Supprimer
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="totalReservations == 0">
+                                        <td colspan="4" style="text-align: center;">Aucune Réservation publié!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="previous-button" (click)="currentPage = currentPage - 1">Précédent</button>
+                            <button class="next-button" (click)="currentPage = currentPage + 1">Suivant</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+</div>

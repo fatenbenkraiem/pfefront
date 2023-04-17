@@ -1,0 +1,248 @@
+<app-adminheader></app-adminheader>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <app-adminsidebar></app-adminsidebar>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Demandeurs</h1>
+                <div class="row" *ngIf="addFormVisible">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            
+                        </div>
+                        <div class="card-body">
+                            <form (ngSubmit)="createdemandeur()" [formGroup]="myForm" method="POST">
+                                <div class="card card-default">
+
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="form-group col-lg-6">
+                                                <label>Name</label>
+                                                <input type="text" formControlName="nom" class="form-control"
+                                                    required />
+                                                <div *ngIf="myForm.controls['nom'].invalid && (myForm.controls['nom'].dirty || myForm.controls['nom'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="myForm.controls['nom']?.errors?.['required']">
+                                                        Name is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="form-group col-lg-6">
+                                                <label>Telephone</label>
+                                              
+                                                    <input type="text" formControlName="tel" class="form-control"
+                                                    required />
+                                                <div *ngIf="myForm.controls['tel'].invalid && (myForm.controls['tel'].dirty || myForm.controls['tel'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="myForm.controls['tel']?.errors?.['required']">
+                                                        Tel is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Email</label>
+                                            
+                                                <input type="email" formControlName="email" class="form-control"
+                                                required />
+                                            <div *ngIf="myForm.controls['email'].invalid && (myForm.controls['email'].dirty || myForm.controls['email'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="myForm.controls['email']?.errors?.['required']">
+                                                    Email is required.
+                                                </div>
+                                                <div *ngIf="myForm.controls['email'].errors?.['email']">
+                                                    Email must end with @example.com.
+                                                  </div>
+                                            </div>
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Password</label>
+                                                <input type="password" formControlName="password" class="form-control"
+                                                required />
+                                            <div *ngIf="myForm.controls['password'].invalid && (myForm.controls['password'].dirty || myForm.controls['password'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="myForm.controls['password']?.errors?.['required']">
+                                                    Password is required.
+                                                </div>
+                                                <div *ngIf="myForm.controls['password'].errors?.['minlength']">
+                                                    Password must be at least 6 characters long.
+                                                  </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row float-right">
+                                            <div class="col">
+                                                <button type="reset" class="btn btn-primary  btn-sm m-3"
+                                                    data-dismiss="modal"
+                                                    (click)="hideAddForm()">Annuler</button>
+                                                <button type="submit" class="btn btn-success btn-sm"
+                                                    data-dismiss="modal">Enregistrer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" *ngIf="editFormVisible">
+                    <div class="card mb-4">
+                        <div class="card-body">
+
+                            <form (ngSubmit)="updatedemandeur()" [formGroup]="myForm"  method="POST">
+                                <div class="card card-default">
+
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="form-group col-lg-6">
+                                                <label>Name</label>
+                                                <input type="text" formControlName="nom" class="form-control"
+                                                    required />
+                                                <div *ngIf="myForm.controls['nom'].invalid && (myForm.controls['nom'].dirty || myForm.controls['nom'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="myForm.controls['nom']?.errors?.['required']">
+                                                        Name is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="form-group col-lg-6">
+                                                <label>Telephone</label>
+                                              
+                                                    <input type="text" formControlName="tel" class="form-control"
+                                                    required />
+                                                <div *ngIf="myForm.controls['tel'].invalid && (myForm.controls['tel'].dirty || myForm.controls['tel'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="myForm.controls['tel']?.errors?.['required']">
+                                                        Tel is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Email</label>
+                                            
+                                                <input type="email" formControlName="email" class="form-control"
+                                                required />
+                                            <div *ngIf="myForm.controls['email'].invalid && (myForm.controls['email'].dirty || myForm.controls['email'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="myForm.controls['email']?.errors?.['required']">
+                                                    Email is required.
+                                                </div>
+                                                <div *ngIf="myForm.controls['email'].errors?.['email']">
+                                                    Email must end with @example.com.
+                                                  </div>
+                                            </div>
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Password</label>
+                                                <input readonly type="password" formControlName="password" class="form-control"
+                                                required />
+                                            <div *ngIf="myForm.controls['password'].invalid && (myForm.controls['password'].dirty || myForm.controls['password'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="myForm.controls['password']?.errors?.['required']">
+                                                    Password is required.
+                                                </div>
+                                                <div *ngIf="myForm.controls['password'].errors?.['minlength']">
+                                                    Password must be at least 6 characters long.
+                                                  </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row float-right">
+                                            <div class="col">
+                                                <button type="reset" class="btn btn-primary  btn-sm m-3"
+                                                    data-dismiss="modal"
+                                                    (click)="hideEditForm()">Annuler</button>
+                                                <button type="submit" class="btn btn-success btn-sm"
+                                                    data-dismiss="modal">Enregistrer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="row">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col col-lg-10">
+                                    <i class="fas fa-table me-1"></i>
+                                    Liste des Demandeurs
+                                </div>
+                                <div class="col col-lg-2">
+                                    <button class="btn btn-primary btn-sm float-right" (click)="showAddForm()">
+                                        Ajouter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="dataTable-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Role</th>
+                                        <th>Telephone</th>.
+                                        <th>Email</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let demandeur of Demandeurs | slice:(currentPage - 1) * itemsPerPage : currentPage * itemsPerPage">
+                                        <td>{{ demandeur.nom }}</td>
+                                        <td>{{demandeur.role}}</td>
+                                        <td>{{ demandeur.tel }}</td>
+                                        <td>{{demandeur.email}}</td>
+                                       
+                                        <td>
+                                            <div class="row">
+                                                <div class="col float-right">
+                                                    <button class="btn btn-sm btn-warning m-2"
+                                                        (click)="editdemandeur(demandeur)">
+                                                        Modifier
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger m-2"
+                                                        (click)="deletedemandeur(demandeur.id)">
+                                                        Supprimer
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="totalDemandeurs == 0">
+                                        <td colspan="4" style="text-align: center;">Aucun demandeur publié!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="previous-button" (click)="currentPage = currentPage - 1">Précédent</button>
+                                    <button class="next-button" (click)="currentPage = currentPage + 1">Suivant</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+</div>

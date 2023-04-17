@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-12 mx-auto">
+          <div class="text-center image-size-small position-relative">
+          <img src="assets/user-vector.jpg" class="rounded-circle p-2 bg-white">
+         
+          </div>
+          <div class="p-5 bg-white rounded shadow-lg">
+            <h3 class="mb-2 text-center pt-5">Sign In</h3>
+            <form class="form-group">
+              <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
+              <div class="alert alert-success" *ngIf='loginSuccess'>{{successMessage}}</div>
+              <div class="form-group">
+                <label for="email">Email :</label>
+                <input type="email" class="form-control" id="email" [(ngModel)]=" userauth.email" placeholder="Enter Email"
+                  name="email"  ngModel required>
+              </div>
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" [(ngModel)]=" userauth.password" id="password" placeholder="Enter password"
+                  name="password"  ngModel required>
+              </div>
+              <br>
+              <button (click)=Login() class="btn btn-success">Login</button>
+            </form>
+                   
+          </div>        
+        </div>
+      </div>
+    </div>
+  </div>

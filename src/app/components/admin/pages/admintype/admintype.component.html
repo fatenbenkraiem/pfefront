@@ -1,0 +1,167 @@
+<app-adminheader></app-adminheader>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <app-adminsidebar></app-adminsidebar>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Type Ressources</h1>
+                <div class="row" *ngIf="addFormVisible">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            
+                        </div>
+                        <div class="card-body">
+                            <form (ngSubmit)="createActualiteEF()" method="POST">
+                                <div class="card card-default">
+
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="form-group col-lg-6">
+                                                <label>Nom</label>
+                                                <input type="text" name="nom" [(ngModel)]="actualiteEF.nom"
+                                                    class="form-control" />
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label>Quantites</label>
+                                                <input type="number" name="quantites" [(ngModel)]="actualiteEF.quantites"
+                                                    class="form-control" />
+                                            </div>
+                                           
+                                        </div>
+
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row float-right">
+                                            <div class="col">
+                                                <button type="reset" class="btn btn-primary  btn-sm m-3"
+                                                    data-dismiss="modal"
+                                                    (click)="hideAddForm()">Annuler</button>
+                                                <button type="submit" class="btn btn-success btn-sm"
+                                                    data-dismiss="modal">Enregistrer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" *ngIf="editFormVisible">
+                    <div class="card mb-4">
+                        <div class="card-body">
+
+                            <form (ngSubmit)="editActualite(actualiteEF)" method="POST">
+                                <div class="card card-default">
+
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                         
+                                            <div class="row">
+                                                <div class="form-group col-lg-6">
+                                                    <label>Nom</label>
+                                                    <input type="text" name="nom" [(ngModel)]="actualiteEF.nom"
+                                                        class="form-control" />
+                                                </div>
+                                                <div class="form-group col-lg-6">
+                                                    <label>Quantites</label>
+                                                    <input type="number" name="quantites" [(ngModel)]="actualiteEF.quantites"
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                       
+                                    <div class="card-footer">
+                                        <div class="row float-right">
+                                            <div class="col">
+                                                <button type="reset" class="btn btn-primary  btn-sm m-3"
+                                                    data-dismiss="modal"
+                                                    (click)="hideAddForm()">Annuler</button>
+                                                <button type="submit" class="btn btn-success btn-sm"
+                                                    data-dismiss="modal" (click)="updateActualiteEF()">Enregistrer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="row">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col col-lg-10">
+                                    <i class="fas fa-table me-1"></i>
+                                    Liste des type Ressources
+                                </div>
+                                <div class="col col-lg-2">
+                                    <button class="btn btn-primary btn-sm float-right" (click)="showAddForm()">
+                                        Ajouter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="dataTable-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Quantites</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let actualite of actualitesType | slice:(currentPage - 1) * itemsPerPage : currentPage * itemsPerPage">
+                                        <td>{{ actualite.nom }}</td>
+                                        <td>{{ actualite.quantites }}</td>
+                                        
+                                       
+                                        <td>
+                                            <div class="row">
+                                                <div class="col float-right">
+                                                    <button class="btn btn-sm btn-warning m-2"
+                                                        (click)="editActualite(actualite)">
+                                                        Modifier
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger m-2"
+                                                        (click)="deleteActualite(actualite.id)">
+
+                                                        Supprimer
+
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="totalActualites == 0">
+                                        <td colspan="4" style="text-align: center;">Aucune type publié!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="previous-button" (click)="currentPage = currentPage - 1">Précédent</button>
+                                    <button class="next-button" (click)="currentPage = currentPage + 1">Suivant</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+</div>
